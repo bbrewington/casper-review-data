@@ -2,6 +2,14 @@
 # Using R package rvest, scrape review data off of mattress website casper.com #
 ################################################################################
 
+#####
+# TO-DO's
+# 1) Fix bug: Error in data.frame(reviews.title = reviews.title, 
+#    reviews.name = reviews.name,  : arguments imply differing number of rows: 15, 14
+#
+# 2) Find a way to get reviews.age (isn't a mandatory field, so sometimes returns less elements than the other fields)
+#    reviews.age <- page.html %>% html_nodes(".review-age") %>% html_text() %>% gsub("(\\n)|[A-Za-z ]", "", .) %>% as.numeric()
+
 library(lubridate)
 library(rvest)
 
@@ -32,14 +40,6 @@ num.pages <- read_html("https://www.casper.com/mattresses/reviews/1?order=desc&r
 
 # Get review data **THIS IS CAUSING A BUG; SEE BELOW**
 lapply(1:num.pages, get.all.reviews)
-
-#####
-# TO-DO's
-# 1) Fix bug: Error in data.frame(reviews.title = reviews.title, 
-#    reviews.name = reviews.name,  : arguments imply differing number of rows: 15, 14
-#
-# 2) Find a way to get reviews.age (isn't a mandatory field, so sometimes returns less elements than the other fields)
-#    reviews.age <- page.html %>% html_nodes(".review-age") %>% html_text() %>% gsub("(\\n)|[A-Za-z ]", "", .) %>% as.numeric()
 
 #####
 # REFERENCE
